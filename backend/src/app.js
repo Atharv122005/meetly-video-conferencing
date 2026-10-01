@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import { createServer } from "node:http";
 import mongoose from "mongoose";
@@ -16,9 +17,7 @@ app.use(express.json({ limit: "40kb" }));
 app.use(express.urlencoded({ limit: "40kb", extended: true }));
 
 async function startServer() {
-    const connectionDb = await mongoose.connect(
-        "mongodb+srv://Atharvpatil:sakshiyuvraj5445%40@zoomclonecluster.cr2tj7y.mongodb.net/"
-    );
+    const connectionDb = await mongoose.connect(process.env.MONGO_URL);
     console.log("MongoDB connected:", connectionDb.connection.host);
 
     server.listen(app.get("port"), () => {
